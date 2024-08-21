@@ -13,7 +13,16 @@ public class Main {
     public static void main(String[] args){
        Main main = new Main();
        main.controller.createPerson("name",18,"12341");
-       main.controller.save();
+        main.controller.createPerson("name2",17,"12347");
+        main.controller.createPerson("name",18,"12341");
+        System.out.println(main.controller.getPeople());
+        main.controller.save();
+        main.controller.clearList();
+        System.out.println(main.controller.getPeople());
+        main.controller.load();
+        System.out.println(main.controller.getPeople());
+        System.out.println(main.controller.getPeople().get(0).getAge());
+
         /**
         File projectDir =new File(System.getProperty("user.dir"));
         System.out.println("variable project" + projectDir);

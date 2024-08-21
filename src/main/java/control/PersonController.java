@@ -36,12 +36,19 @@ public class PersonController {
         people.add(person);
     }
 
+    public void clearList(){
+        people.removeAll(people);
+    }
+    public ArrayList<Person> getPeople(){
+        return people;
+    }
+
     public void save(){
         // el objeto que ayuda a la serializacion
         Gson gson = new Gson();
         //Formateo de la informacion (arrayList -> Json)
         String dataJson =gson.toJson(people);
-        System.out.println(dataJson);
+        //System.out.println(dataJson);
 
         try {
             // inicializar los recursos
@@ -63,7 +70,29 @@ public class PersonController {
         }catch (IOException e){
             e.printStackTrace();
         }
+    }
+    public void load(){
+        Gson gson =new Gson();
+
+        try {
+            FileInputStream fis =new FileInputStream(this.listJson);
+            //lector
+            BufferedReader reader =new BufferedReader(new InputStreamReader(fis));
+            //Como lo voy a leer
+            String line ="";
+            String data = "";
+
+            while ( (line = reader.readLine()) != null){
+                data += line;
+            }
+            reader.close();
+            people = gson.fromJson(data, ArrayList.class);
 
 
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
