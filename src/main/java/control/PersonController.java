@@ -51,8 +51,17 @@ public class PersonController {
             //Definir el escritor de la informacion
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos));
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            //Escribir la informacion
+            writer.write(dataJson);
+            //Linpiar buffer
+            writer.flush();
+            //Cerrar el buffer
+            writer.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }catch (IOException e){
+            e.printStackTrace();
         }
 
 
