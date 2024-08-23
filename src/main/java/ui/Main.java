@@ -1,6 +1,7 @@
 package ui;
 
 import control.PersonController;
+import model.PersonCCComparator;
 
 import java.io.File;
 import java.util.Arrays;
@@ -14,9 +15,9 @@ public class Main {
     }
     public static void main(String[] args){
        Main main = new Main();
-       main.controller.createPerson("name2",20,"12341");
+       main.controller.createPerson("name2",20,"12949459");
         main.controller.createPerson("name",10,"12347");
-        main.controller.createPerson("name3",18,"12341");
+        main.controller.createPerson("name3",18,"123");
         System.out.println(main.controller.getPeople());
         main.controller.save();
         main.controller.clearList();
@@ -27,10 +28,18 @@ public class Main {
 
         System.out.println(main.controller.getPeople().get(0).compareTo(main.controller.getPeople().get(1)));
 
+
+        //Definir un comparador externo a la clase persona
+        //Comparar personas en base a su cedula
+        //Colletions.sort -> ordenar en base al criterio
+        //de comparacion del comparador
+        PersonCCComparator comparator =new PersonCCComparator();
+        Collections.sort(main.controller.getPeople(),comparator);
         System.out.println(main.controller.getPeople());
         //Se le da una lista de personas, esa clase persona debe tener definido un criterio de comparacion
         //interno. La clase persona debe ser comparable
-        Collections.sort(main.controller.getPeople());
+        //Collections.sort(main.controller.getPeople());
+
         /**
         File projectDir =new File(System.getProperty("user.dir"));
         System.out.println("variable project" + projectDir);
