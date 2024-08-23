@@ -1,9 +1,11 @@
 package control;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import model.Person;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class PersonController {
@@ -86,7 +88,9 @@ public class PersonController {
                 data += line;
             }
             reader.close();
-            people = gson.fromJson(data, ArrayList.class);
+
+            Type listType = new TypeToken<ArrayList<Person>>(){}.getType();
+            people = gson.fromJson(data, listType);
 
 
         } catch (FileNotFoundException e) {
