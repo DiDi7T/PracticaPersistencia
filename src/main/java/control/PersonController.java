@@ -45,58 +45,88 @@ public class PersonController {
         return people;
     }
 
-    public void save(){
-        // el objeto que ayuda a la serializacion
-        Gson gson = new Gson();
-        //Formateo de la informacion (arrayList -> Json)
-        String dataJson =gson.toJson(people);
-        //System.out.println(dataJson);
+//    public void save(){
+//        // el objeto que ayuda a la serializacion
+//        Gson gson = new Gson();
+//        //Formateo de la informacion (arrayList -> Json)
+//        String dataJson =gson.toJson(people);
+//        //System.out.println(dataJson);
+//
+//        try {
+//            // inicializar los recursos
+//            createResources();
+//            //Enlazar la informacion con el archivo
+//            FileOutputStream fos = new FileOutputStream(this.listJson);
+//            //Definir el escritor de la informacion
+//            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos));
+//
+//            //Escribir la informacion
+//            writer.write(dataJson);
+//            //Linpiar buffer
+//            writer.flush();
+//            //Cerrar el buffer
+//            writer.close();
+//
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }catch (IOException e){
+//            e.printStackTrace();
+//        }
+//    }
+//    public void load(){
+//        Gson gson =new Gson();
+//
+//        try {
+//            FileInputStream fis =new FileInputStream(this.listJson);
+//            //lector
+//            BufferedReader reader =new BufferedReader(new InputStreamReader(fis));
+//            //Como lo voy a leer
+//            String line ="";
+//            String data = "";
+//
+//            while ( (line = reader.readLine()) != null){
+//                data += line;
+//            }
+//            reader.close();
+//
+//            Type listType = new TypeToken<ArrayList<Person>>(){}.getType();
+//            people = gson.fromJson(data, listType);
+//
+//
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-        try {
-            // inicializar los recursos
-            createResources();
-            //Enlazar la informacion con el archivo
-            FileOutputStream fos = new FileOutputStream(this.listJson);
-            //Definir el escritor de la informacion
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos));
+    public ArrayList<Person> selectionSort(ArrayList<Person> toSort){
+        int n =toSort.size();
+        for (int i=0;i<n-1;i++){
+            for (int j=i+1; j<n;j++){
+                if (toSort.get(i).compareTo(toSort.get(j))>0){
+                    Person prev =toSort.get(i);
+                    Person current =toSort.get(j);
 
-            //Escribir la informacion
-            writer.write(dataJson);
-            //Linpiar buffer
-            writer.flush();
-            //Cerrar el buffer
-            writer.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-    public void load(){
-        Gson gson =new Gson();
-
-        try {
-            FileInputStream fis =new FileInputStream(this.listJson);
-            //lector
-            BufferedReader reader =new BufferedReader(new InputStreamReader(fis));
-            //Como lo voy a leer
-            String line ="";
-            String data = "";
-
-            while ( (line = reader.readLine()) != null){
-                data += line;
+                    toSort.set(i, current);
+                    toSort.set(j,prev);
+                }
             }
-            reader.close();
-
-            Type listType = new TypeToken<ArrayList<Person>>(){}.getType();
-            people = gson.fromJson(data, listType);
-
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+        return  toSort;
+    }
+
+    public ArrayList<Person> insertionSort(ArrayList<Person> toSort){
+        int n =toSort.size();
+        for (int i=1;i<n;i++){
+            Person current = people.get(i);
+            int j=i-1;
+            while (j >=0 && current.compareTo(toSort.get(j))<0){
+                toSort.set(j+1, toSort.get(j));
+                --j;
+            }
+            toSort.set(j+1, current);
+        }
+        return  toSort;
     }
 }
